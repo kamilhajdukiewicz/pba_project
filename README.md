@@ -9,7 +9,7 @@ Każdy użytkownik będzie miał możliwość wyświetlania danych wszystkich za
 
 Tylko zautoryzowani użytkownicy bedą mogli dodać nowych zawodników czy też aktualizować ich dane i statystyki.
 Zautoryzowany użytkownik może również dokonać transferu czyli przenieś użytkownika z drużyny do drużyny przez podanie ID użytkownika i nowej drużyny.
-Zautoryzowany użytkownik może również usunąć użytkownika z drużyny, jednak jego dane zostaną w bazie jako dane historyczne.
+Zautoryzowany użytkownik może również usunąć użytkownika z bazy danych.
 Zawodnik również może nie mieć przynależności klubowej wtedy ID drużyny będzie wynosiło 0.
 
 Czyli aplikacja będzie umożliwiała wywołanie następujących funkcji:
@@ -24,7 +24,7 @@ Czyli aplikacja będzie umożliwiała wywołanie następujących funkcji:
 
 5. **PUT -> /transferPlayer/{ID}** -> transferuje zawodnika do nowej drużyny. Nowa drużyna w body.
 
-6. **DELETE -> /player/{ID}**	-> zeruje przynależność drużynową zawodnika o danym ID.
+6. **DELETE -> /player/{ID}**	-> usuwa zawodnika z bazy danych.
 
 
 ## Autor
