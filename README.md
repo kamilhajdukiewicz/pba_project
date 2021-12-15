@@ -18,13 +18,15 @@ Czyli aplikacja będzie umożliwiała wywołanie następujących funkcji:
 
 2. **GET -> /player/{ID}**  	-> zwróci dane zawodnika o tym ID.
 
-3. **GET -> /team/{ID}**    	-> zwróci dane wszystkich zawodników z drużyny.
+3. **GET -> /teams**            -> zwróci dane wszsytkich drużyn
 
-4. **POST -> /player** 	-> tworzy nowego użytkownika, wymagana autoryzacja. Wszystko w body.
+4. **GET -> /team/{ID}**    	-> zwróci dane wszystkich zawodników z drużyny.
 
-5. **PUT -> /transferPlayer/{ID}** -> transferuje zawodnika do nowej drużyny. Nowa drużyna w body.
+5. **POST -> /player** 	-> tworzy nowego użytkownika, wymagana autoryzacja. Wszystko w body.
 
-6. **DELETE -> /player/{ID}**	-> usuwa zawodnika z bazy danych.
+6. **PUT -> /transferPlayer/{ID}** -> transferuje zawodnika do nowej drużyny. Nowa drużyna w body.
+
+7. **DELETE -> /player/{ID}**	-> usuwa zawodnika z bazy danych.
 
 
 ## Autor
