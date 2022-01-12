@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 @Getter
-public class PlayesRepository {
+public class PlayersRepository {
     private List<PlayerDB> listOfPlayers;
 }
