@@ -30,9 +30,9 @@ public class PlayersRepository {
     }
 
     public boolean updatePlayerById(UUID id, PlayerDB updatedUser) {
-        PlayerDB usr = listOfPlayers.stream().filter(user -> id.equals(user.getId())).findFirst().orElse(null);
-        if(usr != null) {
-            this.listOfPlayers.set(this.listOfPlayers.indexOf(usr), updatedUser);
+        PlayerDB plr = listOfPlayers.stream().filter(player -> id.equals(player.getId())).findFirst().orElse(null);
+        if(plr != null) {
+            this.listOfPlayers.set(this.listOfPlayers.indexOf(plr), updatedUser);
             return true;
         }
         return false;
