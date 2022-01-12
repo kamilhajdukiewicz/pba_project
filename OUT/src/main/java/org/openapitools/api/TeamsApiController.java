@@ -1,6 +1,12 @@
 package org.openapitools.api;
 
+import io.swagger.annotations.ApiParam;
+import org.openapitools.model.Team;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 import java.util.Optional;
@@ -19,6 +25,16 @@ public class TeamsApiController implements TeamsApi {
     @Override
     public Optional<NativeWebRequest> getRequest() {
         return Optional.ofNullable(request);
+    }
+
+    @Override
+    public ResponseEntity<Team> getTeams(
+            @ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime
+            ,
+            @ApiParam(value = "id of request") @RequestHeader(value = "Id", required = false) String id
+    ) {
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 }
