@@ -1,8 +1,16 @@
 package org.openapitools.api;
 
+import io.swagger.annotations.ApiParam;
+import org.openapitools.model.Player;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
+
+import java.time.OffsetDateTime;
 import java.util.Optional;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-09T21:04:10.402+01:00[Europe/Belgrade]")
 @Controller
@@ -21,4 +29,9 @@ public class PlayersApiController implements PlayersApi {
         return Optional.ofNullable(request);
     }
 
+    @Override
+    public ResponseEntity<Player> getUsersUserId(@ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime, @ApiParam(value = "id of request") @RequestHeader(value = "Id", required = false) String id) {
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
 }
