@@ -2,6 +2,7 @@ package org.openapitools.repository;
 
 import lombok.Getter;
 import org.openapitools.model.PlayerDB;
+import org.openapitools.model.Position;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -15,6 +16,12 @@ public class PlayersRepository {
 
     public PlayersRepository() {
         this.listOfPlayers = new ArrayList<PlayerDB>();
+
+        Position pos = new Position();
+        pos.setPosition(Position.PositionEnum.RW);
+        PlayerDB player = PlayerDB.builder().id(UUID.fromString("1c0f1731-d827-4f84-a19e-31875fb5fe71")).firstName("Kamil").lastName("Grosicki")
+                .age(23).height(180).nationality("PL").position(pos).goalsCount(9)
+                .assistCount(3).yellowCardCount(2).redCardCount(1).teamId(UUID.fromString("2c0f1731-d827-4f84-a19e-31875fb5fe72")).build();
     }
 
     public PlayersRepository(List<PlayerDB> listOfUsers) {
