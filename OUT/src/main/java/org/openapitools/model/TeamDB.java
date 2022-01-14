@@ -10,7 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeamDB {
-    private UUID id = null;
+    private UUID id;
 
-    private String name = null;
+    private String name;
 }
