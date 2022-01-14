@@ -1,6 +1,8 @@
 package org.openapitools.model;
 
 import java.util.Objects;
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
@@ -50,7 +52,7 @@ public class Player   {
   private Integer redCardCount;
 
   @JsonProperty("team")
-  private Team team;
+  private UUID teamId;
 
   public Player id(String id) {
     this.id = id;
@@ -277,8 +279,8 @@ public class Player   {
     this.redCardCount = redCardCount;
   }
 
-  public Player team(Team team) {
-    this.team = team;
+  public Player teamId(UUID teamId) {
+    this.teamId = teamId;
     return this;
   }
 
@@ -290,12 +292,12 @@ public class Player   {
 
   @Valid
 
-  public Team getTeam() {
-    return team;
+  public UUID getTeamId() {
+    return teamId;
   }
 
-  public void setTeam(Team team) {
-    this.team = team;
+  public void setTeam(UUID teamId) {
+    this.teamId = teamId;
   }
 
 
@@ -319,12 +321,12 @@ public class Player   {
         Objects.equals(this.assistCount, player.assistCount) &&
         Objects.equals(this.yellowCardCount, player.yellowCardCount) &&
         Objects.equals(this.redCardCount, player.redCardCount) &&
-        Objects.equals(this.team, player.team);
+        Objects.equals(this.teamId, player.teamId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstName, lastName, age, height, nationality, position, goalsCount, assistCount, yellowCardCount, redCardCount, team);
+    return Objects.hash(id, firstName, lastName, age, height, nationality, position, goalsCount, assistCount, yellowCardCount, redCardCount, teamId);
   }
 
   @Override
@@ -343,7 +345,7 @@ public class Player   {
     sb.append("    assistCount: ").append(toIndentedString(assistCount)).append("\n");
     sb.append("    yellowCardCount: ").append(toIndentedString(yellowCardCount)).append("\n");
     sb.append("    redCardCount: ").append(toIndentedString(redCardCount)).append("\n");
-    sb.append("    team: ").append(toIndentedString(team)).append("\n");
+    sb.append("    team: ").append(toIndentedString(teamId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

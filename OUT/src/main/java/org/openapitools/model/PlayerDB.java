@@ -1,6 +1,5 @@
 package org.openapitools.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.UUID;
@@ -12,27 +11,27 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PlayerDB {
 
-    private UUID id = null;
+    private UUID id;
 
-    private String firstName = null;
+    private String firstName;
 
-    private String lastName = null;
+    private String lastName;
 
-    private Integer age = null;
+    private Integer age;
 
-    private Integer height = null;
+    private Integer height;
 
-    private String nationality = null;
+    private String nationality;
 
-    private Position position = null;
+    private Position position;
 
-    private Integer goalsCount = null;
+    private Integer goalsCount;
 
-    private Integer assistCount = null;
+    private Integer assistCount;
 
-    private Integer yellowCardCount = null;
+    private Integer yellowCardCount;
 
-    private Integer redCardCount = null;
+    private Integer redCardCount;
 
-    private TeamDB team = null;
+    private UUID teamId;
 }
