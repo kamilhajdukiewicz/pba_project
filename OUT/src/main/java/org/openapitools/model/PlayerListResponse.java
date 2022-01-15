@@ -16,7 +16,7 @@ public class PlayerListResponse {
 
     @JsonProperty("usersList")
     @Valid
-    private List<Player> usersList = new ArrayList<>();
+    private List<Player> playerList = new ArrayList<>();
 
     public PlayerListResponse responseHeader(org.openapitools.model.ResponseHeader responseHeader) {
         this.responseHeader = responseHeader;
@@ -40,31 +40,31 @@ public class PlayerListResponse {
         this.responseHeader = responseHeader;
     }
 
-    public PlayerListResponse usersList(List<Player> usersList) {
-        this.usersList = usersList;
+    public PlayerListResponse playerList(List<Player> playerList) {
+        this.playerList = playerList;
         return this;
     }
 
-    public PlayerListResponse addUsersListItem(Player usersListItem) {
-        this.usersList.add(usersListItem);
+    public PlayerListResponse addUsersListItem(Player playerListItem) {
+        this.playerList.add(playerListItem);
         return this;
     }
 
     /**
-     * Get usersList
-     * @return usersList
+     * Get playerList
+     * @return playersList
      **/
     @ApiModelProperty(required = true, value = "")
     @NotNull
 
     @Valid
 
-    public List<Player> getUsersList() {
-        return usersList;
+    public List<Player> getPlayerList() {
+        return playerList;
     }
 
-    public void setUsersList(List<Player> usersList) {
-        this.usersList = usersList;
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 
 
@@ -76,14 +76,14 @@ public class PlayerListResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PlayerListResponse userListResponse = (PlayerListResponse) o;
-        return Objects.equals(this.responseHeader, userListResponse.responseHeader) &&
-                Objects.equals(this.usersList, userListResponse.usersList);
+        PlayerListResponse playerListResponse = (PlayerListResponse) o;
+        return Objects.equals(this.responseHeader, playerListResponse.responseHeader) &&
+                Objects.equals(this.playerList, playerListResponse.playerList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(responseHeader, usersList);
+        return Objects.hash(responseHeader, playerList);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class PlayerListResponse {
         sb.append("class PlayerListResponse {\n");
 
         sb.append("    responseHeader: ").append(toIndentedString(responseHeader)).append("\n");
-        sb.append("    playerList: ").append(toIndentedString(usersList)).append("\n");
+        sb.append("    playerList: ").append(toIndentedString(playerList)).append("\n");
         sb.append("}");
         return sb.toString();
     }

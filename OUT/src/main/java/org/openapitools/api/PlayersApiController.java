@@ -48,7 +48,7 @@ public class PlayersApiController implements PlayersApi {
         else {
 
         }
-        return ResponseEntity.ok().body(new PlayerListResponse().usersList(Players).
+        return ResponseEntity.ok().body(new PlayerListResponse().playerList(Players).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
     }
 }

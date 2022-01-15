@@ -50,12 +50,11 @@ public class PlayerApiController implements PlayerApi {
         ObjectMapper mapper = new ObjectMapper();
         String bodyStr = mapper.writeValueAsString(bodyReq.toString());
 
-        if(playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(player.getId())).findFirst().equals(Optional.empty()))
-        {
+        if(playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(player.getId())).findFirst().equals(Optional.empty())) {
             playersRepo.addNewPlayer(new PlayerDB(UUID.fromString(player.getId()), player.getFirstName(), player.getLastName(),
                     player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
                     player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
-        }else{
+        } else {
             //throw new UserAlreadyExistsException();
         }
 
@@ -90,7 +89,4 @@ public class PlayerApiController implements PlayerApi {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
 }
