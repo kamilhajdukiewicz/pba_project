@@ -3,10 +3,8 @@ package org.openapitools.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
-import org.openapitools.model.Player;
-import org.openapitools.model.PlayerRequest;
-import org.openapitools.model.PlayerResponse;
-import org.openapitools.model.ResponseHeader;
+import org.openapitools.model.*;
+import org.openapitools.repository.PlayersRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +27,8 @@ public class PlayerApiController implements PlayerApi {
 
     private final NativeWebRequest request;
 
+    private PlayersRepository playersRepo = PlayersRepository.getInstance();
+
     @org.springframework.beans.factory.annotation.Autowired
     public PlayerApiController(NativeWebRequest request) {
         this.request = request;
@@ -48,7 +48,16 @@ public class PlayerApiController implements PlayerApi {
         bodyReq = bodyReq.toString().replace("class User ", "");
         ObjectMapper mapper = new ObjectMapper();
         String bodyStr = mapper.writeValueAsString(bodyReq.toString());
-        
+
+        if(playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(player.getId())).findFirst().equals(Optional.empty()))
+        {
+            playersRepo.addNewPlayer(new PlayerDB(UUID.fromString(player.getId()), player.getFirstName(), player.getLastName(),
+                    player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
+                    player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
+        }else{
+            //throw new UserAlreadyExistsException();
+        }
+
         return ResponseEntity.ok().body(new PlayerResponse().user(player).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
     }
