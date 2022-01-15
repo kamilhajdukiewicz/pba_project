@@ -12,7 +12,7 @@ public class PlayerResponse {
     private ResponseHeader responseHeader = null;
 
     @JsonProperty("player")
-    private Player user = null;
+    private Player player = null;
 
     public PlayerResponse responseHeader(ResponseHeader responseHeader) {
         this.responseHeader = responseHeader;
@@ -36,26 +36,26 @@ public class PlayerResponse {
         this.responseHeader = responseHeader;
     }
 
-    public PlayerResponse user(Player user) {
-        this.user = user;
+    public PlayerResponse player(Player player) {
+        this.player = player;
         return this;
     }
 
     /**
-     * Get user
-     * @return user
+     * Get player
+     * @return player
      **/
     @ApiModelProperty(required = true, value = "")
     @NotNull
 
     @Valid
 
-    public Player getUser() {
-        return user;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setUser(Player user) {
-        this.user = user;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
 
@@ -67,14 +67,14 @@ public class PlayerResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PlayerResponse userResponse = (PlayerResponse) o;
-        return Objects.equals(this.responseHeader, userResponse.responseHeader) &&
-                Objects.equals(this.user, userResponse.user);
+        PlayerResponse playerResponse = (PlayerResponse) o;
+        return Objects.equals(this.responseHeader, playerResponse.responseHeader) &&
+                Objects.equals(this.player, playerResponse.player);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(responseHeader, user);
+        return Objects.hash(responseHeader, player);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class PlayerResponse {
         sb.append("class PlayerResponse {\n");
 
         sb.append("    responseHeader: ").append(toIndentedString(responseHeader)).append("\n");
-        sb.append("    player: ").append(toIndentedString(user)).append("\n");
+        sb.append("    player: ").append(toIndentedString(player)).append("\n");
         sb.append("}");
         return sb.toString();
     }

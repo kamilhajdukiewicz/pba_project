@@ -58,7 +58,7 @@ public class PlayerApiController implements PlayerApi {
             //throw new UserAlreadyExistsException();
         }
 
-        return ResponseEntity.ok().body(new PlayerResponse().user(player).
+        return ResponseEntity.ok().body(new PlayerResponse().player(player).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
     }
 
@@ -75,7 +75,7 @@ public class PlayerApiController implements PlayerApi {
         else {
 
         }
-        return ResponseEntity.ok().body(new PlayerResponse().user(player).
+        return ResponseEntity.ok().body(new PlayerResponse().player(player).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
     }
 
