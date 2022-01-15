@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @Getter
@@ -14,6 +15,11 @@ public class TeamsRepository {
 
     public TeamsRepository() {
         this.listOfTeams = new ArrayList<TeamDB>();
+
+        TeamDB team = TeamDB.builder().name("Pogon Szczecin").id(UUID.fromString("2c0f1731-d827-4f84-a19e-31875fb5fe72")).build();
+        listOfTeams.add(team);
+        team = TeamDB.builder().name("Legia Warszawa").id(UUID.fromString("bd455cac-7245-44fd-8d50-8223fbced82b")).build();
+        listOfTeams.add(team);
     }
 
     public TeamsRepository(List<TeamDB> listOfTeams) {
