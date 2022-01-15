@@ -8,6 +8,7 @@ package org.openapitools.api;
 import java.time.OffsetDateTime;
 import org.openapitools.model.Player;
 import io.swagger.annotations.*;
+import org.openapitools.model.PlayerListResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,9 +41,9 @@ public interface PlayersApi {
      *         or Not Found (status code 404)
      *         or Internal Server Error (status code 500)
      */
-    @ApiOperation(value = "Get all players info.", nickname = "getUsersUserId", notes = "Retrieve the information about every player in database.", response = Player.class, tags={  })
+    @ApiOperation(value = "Get all players info.", nickname = "getUsersUserId", notes = "Retrieve the information about every player in database.", response = PlayerListResponse.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "", response = Player.class),
+        @ApiResponse(code = 200, message = "", response = PlayerListResponse.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error") })
     @RequestMapping(
@@ -50,7 +51,7 @@ public interface PlayersApi {
         value = "/players",
         produces = { "application/json" }
     )
-    default ResponseEntity<Player> getUsersUserId(@ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime,@ApiParam(value = "id of request") @RequestHeader(value = "Id", required = false) String id) {
+    default ResponseEntity<PlayerListResponse> getUsersUserId(@ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime,@ApiParam(value = "id of request") @RequestHeader(value = "Id", required = false) String id) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

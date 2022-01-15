@@ -7,6 +7,7 @@ package org.openapitools.api;
 
 import org.openapitools.model.Team;
 import io.swagger.annotations.*;
+import org.openapitools.model.TeamListResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,10 +41,10 @@ public interface TeamsApi {
      *         or Internal Server Error (status code 500)
      */
 
-    @ApiOperation(value = "Get all teams", nickname = "getTeams", notes = "Retrieve the information about every team in database.", response = Team.class, tags={  })
+    @ApiOperation(value = "Get all teams", nickname = "getTeams", notes = "Retrieve the information about every team in database.", response = TeamListResponse.class, tags={  })
     @ApiResponses(value = { 
 
-        @ApiResponse(code = 200, message = "OK", response = Team.class),
+        @ApiResponse(code = 200, message = "OK", response = TeamListResponse.class),
 
         @ApiResponse(code = 404, message = "Not Found"),
 
@@ -53,7 +54,7 @@ public interface TeamsApi {
         value = "/teams",
         produces = { "application/json" }
     )
-    default ResponseEntity<Team> getTeams(
+    default ResponseEntity<TeamListResponse> getTeams(
 @ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime
 ,
 @ApiParam(value = "id of request") @RequestHeader(value = "Id", required = false) String id
