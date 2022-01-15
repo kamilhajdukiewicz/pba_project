@@ -113,12 +113,7 @@ public class Position   {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Position {\n");
-    
-    sb.append("    position: ").append(toIndentedString(position)).append("\n");
-    sb.append("}");
-    return sb.toString();
+    return toIndentedString(position);
   }
 
   /**

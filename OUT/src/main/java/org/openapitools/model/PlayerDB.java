@@ -23,7 +23,7 @@ public class PlayerDB {
 
     private String nationality;
 
-    private Position position;
+    private String position;
 
     private Integer goalsCount;
 

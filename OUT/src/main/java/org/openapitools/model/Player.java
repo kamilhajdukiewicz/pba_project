@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import org.openapitools.model.Position;
 import org.openapitools.model.Team;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -16,6 +17,7 @@ import javax.validation.constraints.*;
 /**
  * Player
  */
+@AllArgsConstructor
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-09T21:04:10.402+01:00[Europe/Belgrade]")
 public class Player   {
   @JsonProperty("id")
@@ -37,7 +39,7 @@ public class Player   {
   private String nationality;
 
   @JsonProperty("position")
-  private Position position;
+  private Position.PositionEnum position;
 
   @JsonProperty("goalsCount")
   private Integer goalsCount;
@@ -51,7 +53,7 @@ public class Player   {
   @JsonProperty("redCardCount")
   private Integer redCardCount;
 
-  @JsonProperty("team")
+  @JsonProperty("teamId")
   private UUID teamId;
 
   public Player id(String id) {
@@ -178,7 +180,7 @@ public class Player   {
     this.nationality = nationality;
   }
 
-  public Player position(Position position) {
+  public Player position(Position.PositionEnum position) {
     this.position = position;
     return this;
   }
@@ -191,11 +193,11 @@ public class Player   {
 
   @Valid
 
-  public Position getPosition() {
+  public Position.PositionEnum getPosition() {
     return position;
   }
 
-  public void setPosition(Position position) {
+  public void setPosition(Position.PositionEnum position) {
     this.position = position;
   }
 
