@@ -82,8 +82,13 @@ public class PlayerApiController implements PlayerApi {
 
     @Override
     public ResponseEntity<Void> deletePlayerPlayerID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID, @ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime, @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        if(!playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())) {
+            playersRepo.deletePlayerById(UUID.fromString(playerID));
+        }
+        else {
 
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
