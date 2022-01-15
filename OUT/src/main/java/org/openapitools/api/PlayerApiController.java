@@ -44,7 +44,7 @@ public class PlayerApiController implements PlayerApi {
     public ResponseEntity<PlayerResponse> postPlayer(@ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime,
                                                      @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id,
                                                      @ApiParam(value = "") @Valid @RequestBody(required = false) PlayerRequest body) throws JsonProcessingException {
-        Player player = body.getUser();
+        Player player = body.getPlayer();
         String bodyReq = body.toString().replace("class UpdateRequest ", "");
         bodyReq = bodyReq.toString().replace("class User ", "");
         ObjectMapper mapper = new ObjectMapper();

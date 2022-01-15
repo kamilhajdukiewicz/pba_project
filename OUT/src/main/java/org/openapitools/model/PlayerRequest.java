@@ -12,7 +12,7 @@ public class PlayerRequest {
     private io.swagger.model.RequestHeader requestHeader = null;
 
     @JsonProperty("player")
-    private Player user = null;
+    private Player player = null;
 
     public PlayerRequest requestHeader(io.swagger.model.RequestHeader requestHeader) {
         this.requestHeader = requestHeader;
@@ -36,26 +36,26 @@ public class PlayerRequest {
         this.requestHeader = requestHeader;
     }
 
-    public PlayerRequest user(Player user) {
-        this.user = user;
+    public PlayerRequest player(Player player) {
+        this.player = player;
         return this;
     }
 
     /**
-     * Get user
-     * @return user
+     * Get player
+     * @return player
      **/
     @ApiModelProperty(required = true, value = "")
     @NotNull
 
     @Valid
 
-    public Player getUser() {
-        return user;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setUser(Player user) {
-        this.user = user;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
 
@@ -69,12 +69,12 @@ public class PlayerRequest {
         }
         PlayerRequest updateRequest = (PlayerRequest) o;
         return Objects.equals(this.requestHeader, updateRequest.requestHeader) &&
-                Objects.equals(this.user, updateRequest.user);
+                Objects.equals(this.player, updateRequest.player);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(requestHeader, user);
+        return Objects.hash(requestHeader, player);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class PlayerRequest {
         sb.append("class UpdateRequest {\n");
 
         sb.append("    requestHeader: ").append(toIndentedString(requestHeader)).append("\n");
-        sb.append("    player: ").append(toIndentedString(user)).append("\n");
+        sb.append("    player: ").append(toIndentedString(player)).append("\n");
         sb.append("}");
         return sb.toString();
     }
