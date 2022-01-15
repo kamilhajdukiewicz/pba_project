@@ -1,7 +1,12 @@
 package org.openapitools.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
 import org.openapitools.model.Player;
+import org.openapitools.model.PlayerRequest;
+import org.openapitools.model.PlayerResponse;
+import org.openapitools.model.ResponseHeader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
+
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-09T21:04:10.402+01:00[Europe/Belgrade]")
 @Controller
 @RequestMapping("${openapi.userCRUD.base-path:}")
@@ -32,9 +40,17 @@ public class PlayerApiController implements PlayerApi {
     }
 
     @Override
-    public ResponseEntity<Player> postPlayer(@ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime, @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id, @ApiParam(value = "") @Valid @RequestBody(required = false) Player player) {
-
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    public ResponseEntity<PlayerResponse> postPlayer(@ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime,
+                                                     @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id,
+                                                     @ApiParam(value = "") @Valid @RequestBody(required = false) PlayerRequest body) throws JsonProcessingException {
+        Player player = body.getUser();
+        String bodyReq = body.toString().replace("class UpdateRequest ", "");
+        bodyReq = bodyReq.toString().replace("class User ", "");
+        ObjectMapper mapper = new ObjectMapper();
+        String bodyStr = mapper.writeValueAsString(bodyReq.toString());
+        
+        return ResponseEntity.ok().body(new PlayerResponse().user(player).
+                responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
     }
 
     @Override

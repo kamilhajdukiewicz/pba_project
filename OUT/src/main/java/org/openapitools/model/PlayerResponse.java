@@ -2,23 +2,19 @@ package org.openapitools.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ResponseHeader;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-public class PlayerListResponse {
+public class PlayerResponse {
     @JsonProperty("responseHeader")
-    private org.openapitools.model.ResponseHeader responseHeader = null;
+    private ResponseHeader responseHeader = null;
 
-    @JsonProperty("usersList")
-    @Valid
-    private List<Player> usersList = new ArrayList<>();
+    @JsonProperty("player")
+    private Player user = null;
 
-    public PlayerListResponse responseHeader(org.openapitools.model.ResponseHeader responseHeader) {
+    public PlayerResponse responseHeader(ResponseHeader responseHeader) {
         this.responseHeader = responseHeader;
         return this;
     }
@@ -32,39 +28,34 @@ public class PlayerListResponse {
 
     @Valid
 
-    public org.openapitools.model.ResponseHeader getResponseHeader() {
+    public ResponseHeader getResponseHeader() {
         return responseHeader;
     }
 
-    public void setResponseHeader(org.openapitools.model.ResponseHeader responseHeader) {
+    public void setResponseHeader(ResponseHeader responseHeader) {
         this.responseHeader = responseHeader;
     }
 
-    public PlayerListResponse usersList(List<Player> usersList) {
-        this.usersList = usersList;
-        return this;
-    }
-
-    public PlayerListResponse addUsersListItem(Player usersListItem) {
-        this.usersList.add(usersListItem);
+    public PlayerResponse user(Player user) {
+        this.user = user;
         return this;
     }
 
     /**
-     * Get usersList
-     * @return usersList
+     * Get user
+     * @return user
      **/
     @ApiModelProperty(required = true, value = "")
     @NotNull
 
     @Valid
 
-    public List<Player> getUsersList() {
-        return usersList;
+    public Player getUser() {
+        return user;
     }
 
-    public void setUsersList(List<Player> usersList) {
-        this.usersList = usersList;
+    public void setUser(Player user) {
+        this.user = user;
     }
 
 
@@ -76,23 +67,23 @@ public class PlayerListResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PlayerListResponse userListResponse = (PlayerListResponse) o;
-        return Objects.equals(this.responseHeader, userListResponse.responseHeader) &&
-                Objects.equals(this.usersList, userListResponse.usersList);
+        PlayerResponse userResponse = (PlayerResponse) o;
+        return Objects.equals(this.responseHeader, userResponse.responseHeader) &&
+                Objects.equals(this.user, userResponse.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(responseHeader, usersList);
+        return Objects.hash(responseHeader, user);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class PlayerListResponse {\n");
+        sb.append("class PlayerResponse {\n");
 
         sb.append("    responseHeader: ").append(toIndentedString(responseHeader)).append("\n");
-        sb.append("    playerList: ").append(toIndentedString(usersList)).append("\n");
+        sb.append("    player: ").append(toIndentedString(user)).append("\n");
         sb.append("}");
         return sb.toString();
     }

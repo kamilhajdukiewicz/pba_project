@@ -7,6 +7,8 @@ package org.openapitools.api;
 
 import java.time.OffsetDateTime;
 import org.openapitools.model.Player;
+import org.openapitools.model.PlayerListResponse;
+import org.openapitools.model.PlayerResponse;
 import org.openapitools.model.Team;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
@@ -43,12 +45,12 @@ public interface TransferPlayerApi {
      *         or Not Found (status code 404)
      *         or Internal Server Error (status code 500)
      */
-    @ApiOperation(value = "Transfer player with playerID to the new team.", nickname = "putUpdateUserUserID", notes = "Transfer player to the new team.", response = Player.class, authorizations = {
+    @ApiOperation(value = "Transfer player with playerID to the new team.", nickname = "putUpdateUserUserID", notes = "Transfer player to the new team.", response = PlayerResponse.class, authorizations = {
         
         @Authorization(value = "basicAuth")
          }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK", response = Player.class),
+        @ApiResponse(code = 200, message = "OK", response = PlayerResponse.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error") })
     @RequestMapping(
@@ -57,7 +59,7 @@ public interface TransferPlayerApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<Player> putUpdateUserUserID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID,@ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime,@ApiParam(value = "id of request") @RequestHeader(value = "id", required = false) String id,@ApiParam(value = "") @Valid @RequestBody(required = false) Team team) {
+    default ResponseEntity<PlayerResponse> putUpdateUserUserID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID, @ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime, @ApiParam(value = "id of request") @RequestHeader(value = "id", required = false) String id, @ApiParam(value = "") @Valid @RequestBody(required = false) String teamId) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

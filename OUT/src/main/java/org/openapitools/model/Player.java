@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.openapitools.model.Position;
 import org.openapitools.model.Team;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -18,6 +19,7 @@ import javax.validation.constraints.*;
  * Player
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-09T21:04:10.402+01:00[Europe/Belgrade]")
 public class Player   {
   @JsonProperty("id")

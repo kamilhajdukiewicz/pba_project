@@ -88,10 +88,10 @@ public class TeamListResponse {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class UserListResponse {\n");
+        sb.append("class PlayerListResponse {\n");
 
         sb.append("    responseHeader: ").append(toIndentedString(responseHeader)).append("\n");
-        sb.append("    usersList: ").append(toIndentedString(usersList)).append("\n");
+        sb.append("    playersList: ").append(toIndentedString(usersList)).append("\n");
         sb.append("}");
         return sb.toString();
     }

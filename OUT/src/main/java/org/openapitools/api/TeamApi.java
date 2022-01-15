@@ -43,7 +43,7 @@ public interface TeamApi {
      */
     @ApiOperation(value = "Get players info by teamID.", nickname = "getTeamTeamID", notes = "Get info about the players with the same team ID as teamID.", response = PlayerListResponse.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK", response = Player.class),
+        @ApiResponse(code = 200, message = "OK", response = PlayerListResponse.class),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error") })
     @RequestMapping(
