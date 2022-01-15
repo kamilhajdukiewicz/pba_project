@@ -14,8 +14,17 @@ public class CredentialsRepo {
 
     List<CredentialsDB> listOfCredentials = new ArrayList<CredentialsDB>();
 
-    CredentialsRepo() {
+    private static CredentialsRepo INSTANCE;
+
+    private CredentialsRepo() {
         CredentialsDB cred = CredentialsDB.builder().login("admin").password("admin").build();
         listOfCredentials.add(cred);
+    }
+
+    public static CredentialsRepo getInstance(){
+        if(INSTANCE == null) {
+            INSTANCE = new CredentialsRepo();
+        }
+        return INSTANCE;
     }
 }

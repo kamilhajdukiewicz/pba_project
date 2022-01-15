@@ -12,8 +12,9 @@ import java.util.UUID;
 @Getter
 public class TeamsRepository {
     private List<TeamDB> listOfTeams;
+    private static TeamsRepository INSTANCE;
 
-    public TeamsRepository() {
+    private TeamsRepository() {
         this.listOfTeams = new ArrayList<TeamDB>();
 
         TeamDB team = TeamDB.builder().name("Pogon Szczecin").id(UUID.fromString("2c0f1731-d827-4f84-a19e-31875fb5fe72")).build();
@@ -22,11 +23,18 @@ public class TeamsRepository {
         listOfTeams.add(team);
     }
 
+    public static TeamsRepository getInstance(){
+        if(INSTANCE == null) {
+            INSTANCE = new TeamsRepository();
+        }
+        return INSTANCE;
+    }
+
     public TeamsRepository(List<TeamDB> listOfTeams) {
         this.listOfTeams = listOfTeams;
     }
 
-    public void addNewPlayer(TeamDB newTeam) {
+    public void addNewTeam(TeamDB newTeam) {
         this.listOfTeams.add(newTeam);
     }
 }
