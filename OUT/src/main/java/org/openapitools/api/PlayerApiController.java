@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-12-09T21:04:10.402+01:00[Europe/Belgrade]")
 @Controller
@@ -63,9 +64,20 @@ public class PlayerApiController implements PlayerApi {
     }
 
     @Override
-    public ResponseEntity<Player> getPlayerPlayerID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID,@ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime,@ApiParam(value = "id of request") @RequestHeader(value = "Id", required = false) String id) {
+    public ResponseEntity<PlayerResponse> getPlayerPlayerID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID,@ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime,@ApiParam(value = "id of request") @RequestHeader(value = "Id", required = false) String id) {
 
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        Player player = new Player();
+        if(!playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())) {
+            player = playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(playerID)).findFirst()
+                    .map(p -> new Player(p.getId().toString(), p.getFirstName(), p.getLastName(),
+                            p.getAge(), p.getHeight(), p.getNationality(), Position.PositionEnum.fromValue(p.getPosition()),
+                            p.getGoalsCount(), p.getAssistCount(), p.getYellowCardCount(), p.getRedCardCount(), p.getTeamId())).orElse(null);
+        }
+        else {
+
+        }
+        return ResponseEntity.ok().body(new PlayerResponse().user(player).
+                responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
     }
 
     @Override
