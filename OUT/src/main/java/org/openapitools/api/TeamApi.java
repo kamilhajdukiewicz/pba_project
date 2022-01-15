@@ -7,6 +7,7 @@ package org.openapitools.api;
 
 import org.openapitools.model.Player;
 import io.swagger.annotations.*;
+import org.openapitools.model.PlayerListResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public interface TeamApi {
      *         or Not Found (status code 404)
      *         or Internal Server Error (status code 500)
      */
-    @ApiOperation(value = "Get players info by teamID.", nickname = "getTeamTeamID", notes = "Get info about the players with the same team ID as teamID.", response = Player.class, tags={  })
+    @ApiOperation(value = "Get players info by teamID.", nickname = "getTeamTeamID", notes = "Get info about the players with the same team ID as teamID.", response = PlayerListResponse.class, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "OK", response = Player.class),
         @ApiResponse(code = 404, message = "Not Found"),
@@ -50,7 +51,7 @@ public interface TeamApi {
         value = "/team/{teamID}",
         produces = { "application/json" }
     )
-    default ResponseEntity<Player> getTeamTeamID(@ApiParam(value = "Id of the team.", required = true) @PathVariable("teamID") String teamID,@ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime,@ApiParam(value = "id of request") @RequestHeader(value = "Id", required = false) String id) {
+    default ResponseEntity<PlayerListResponse> getTeamTeamID(@ApiParam(value = "Id of the team.", required = true) @PathVariable("teamID") String teamID, @ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime, @ApiParam(value = "id of request") @RequestHeader(value = "Id", required = false) String id) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
