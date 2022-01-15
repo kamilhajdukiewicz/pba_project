@@ -13,9 +13,9 @@ public class TeamListResponse {
     @JsonProperty("responseHeader")
     private org.openapitools.model.ResponseHeader responseHeader = null;
 
-    @JsonProperty("usersList")
+    @JsonProperty("teamsList")
     @Valid
-    private List<Team> usersList = new ArrayList<>();
+    private List<Team> teamsList = new ArrayList<>();
 
     public TeamListResponse responseHeader(org.openapitools.model.ResponseHeader responseHeader) {
         this.responseHeader = responseHeader;
@@ -39,31 +39,31 @@ public class TeamListResponse {
         this.responseHeader = responseHeader;
     }
 
-    public TeamListResponse usersList(List<Team> usersList) {
-        this.usersList = usersList;
+    public TeamListResponse teamsList(List<Team> teamsList) {
+        this.teamsList = teamsList;
         return this;
     }
 
-    public TeamListResponse addUsersListItem(Team usersListItem) {
-        this.usersList.add(usersListItem);
+    public TeamListResponse addTeamsListItem(Team teamsListItem) {
+        this.teamsList.add(teamsListItem);
         return this;
     }
 
     /**
-     * Get usersList
-     * @return usersList
+     * Get teamsList
+     * @return teamsList
      **/
     @ApiModelProperty(required = true, value = "")
     @NotNull
 
     @Valid
 
-    public List<Team> getUsersList() {
-        return usersList;
+    public List<Team> getTeamsList() {
+        return teamsList;
     }
 
-    public void setUsersList(List<Team> usersList) {
-        this.usersList = usersList;
+    public void setTeamsList(List<Team> teamsList) {
+        this.teamsList = teamsList;
     }
 
 
@@ -77,21 +77,21 @@ public class TeamListResponse {
         }
         TeamListResponse userListResponse = (TeamListResponse) o;
         return Objects.equals(this.responseHeader, userListResponse.responseHeader) &&
-                Objects.equals(this.usersList, userListResponse.usersList);
+                Objects.equals(this.teamsList, userListResponse.teamsList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(responseHeader, usersList);
+        return Objects.hash(responseHeader, teamsList);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class PlayerListResponse {\n");
+        sb.append("class TeamsListResponse {\n");
 
         sb.append("    responseHeader: ").append(toIndentedString(responseHeader)).append("\n");
-        sb.append("    playersList: ").append(toIndentedString(usersList)).append("\n");
+        sb.append("    teamsList: ").append(toIndentedString(teamsList)).append("\n");
         sb.append("}");
         return sb.toString();
     }

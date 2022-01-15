@@ -51,7 +51,7 @@ public class TeamsApiController implements TeamsApi {
         else {
 
         }
-        return ResponseEntity.ok().body(new TeamListResponse().usersList(Teams).
+        return ResponseEntity.ok().body(new TeamListResponse().teamsList(Teams).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
     }
 
