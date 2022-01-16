@@ -82,8 +82,7 @@ public class PlayerRequest {
         StringBuilder sb = new StringBuilder();
         sb.append("class UpdateRequest {\n");
 
-        sb.append("    requestHeader: ").append(toIndentedString(requestHeader)).append("\n");
-        sb.append("    player: ").append(toIndentedString(player)).append("\n");
+        sb.append("    \"player\": ").append(toIndentedString(player)).append("\n");
         sb.append("}");
         return sb.toString();
     }

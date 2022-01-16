@@ -336,20 +336,20 @@ public class Player   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Player {\n");
+    sb.append("{\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
-    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-    sb.append("    age: ").append(toIndentedString(age)).append("\n");
-    sb.append("    height: ").append(toIndentedString(height)).append("\n");
-    sb.append("    nationality: ").append(toIndentedString(nationality)).append("\n");
-    sb.append("    position: ").append(toIndentedString(position)).append("\n");
-    sb.append("    goalsCount: ").append(toIndentedString(goalsCount)).append("\n");
-    sb.append("    assistCount: ").append(toIndentedString(assistCount)).append("\n");
-    sb.append("    yellowCardCount: ").append(toIndentedString(yellowCardCount)).append("\n");
-    sb.append("    redCardCount: ").append(toIndentedString(redCardCount)).append("\n");
-    sb.append("    team: ").append(toIndentedString(teamId)).append("\n");
+    sb.append("    \"id\": \"").append(toIndentedString(id)).append("\",\n");
+    sb.append("    \"firstName\": \"").append(toIndentedString(firstName)).append("\",\n");
+    sb.append("    \"lastName\": \"").append(toIndentedString(lastName)).append("\",\n");
+    sb.append("    \"age\": ").append(toIndentedString(age)).append(",\n");
+    sb.append("    \"height\": ").append(toIndentedString(height)).append(",\n");
+    sb.append("    \"nationality\": \"").append(toIndentedString(nationality)).append("\",\n");
+    sb.append("    \"position\": \"").append(toIndentedString(position)).append("\",\n");
+    sb.append("    \"goalsCount\": ").append(toIndentedString(goalsCount)).append(",\n");
+    sb.append("    \"assistCount\": ").append(toIndentedString(assistCount)).append(",\n");
+    sb.append("    \"yellowCardCount\": ").append(toIndentedString(yellowCardCount)).append(",\n");
+    sb.append("    \"redCardCount\": ").append(toIndentedString(redCardCount)).append(",\n");
+    sb.append("    \"team\": \"").append(toIndentedString(teamId)).append("\"\n");
     sb.append("}");
     return sb.toString();
   }

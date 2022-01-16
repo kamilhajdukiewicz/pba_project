@@ -23,6 +23,7 @@ import javax.validation.constraints.*;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -128,7 +129,7 @@ public interface PlayerApi {
     default ResponseEntity<PlayerResponse> postPlayer(@ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime,
                                                       @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id,
                                                       @RequestHeader("Authorization") String credentials, @RequestHeader("X-HMAC-SIGNATURE") String signature,
-                                                      @ApiParam(value = "") @Valid @RequestBody(required = false) PlayerRequest body) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+                                                      @ApiParam(value = "") @Valid @RequestBody(required = false) PlayerRequest body) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
