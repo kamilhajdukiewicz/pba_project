@@ -69,4 +69,13 @@ public class ErrorHandler {
         return new ResponseEntity<Error>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(MessageNotValidException.class)
+    public ResponseEntity<Error> handleException5(MessageNotValidException ex, WebRequest request) {
+        Error error = new Error();
+        error.setResponseHeader(new ResponseHeader().sendDate(new Date()).requestId(UUID.randomUUID()));
+        error.code("500");
+        error.message(ex.getMessage());
+        return new ResponseEntity<Error>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
