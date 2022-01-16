@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: UserCRUD
+  title: PlayerCRUD
   version: '1.0'
   contact:
     email: hk39513@zut.edu.pl
@@ -41,15 +41,12 @@ paths:
                     age: 23
                     height: 180
                     nationality: PL
-                    position:
-                      position: ST
+                    position: ST
                     goalsCount: 10
                     assistCount: 7
                     yellowCardCount: 3
                     redCardCount: 1
-                    team:
-                      id: 97874567-e89b-42d3-a456-556642440000
-                      name: Pogon Szczecin
+                    teamId: 97874567-e89b-42d3-a456-556642440000
         '404':
           description: Not Found
           headers:
@@ -64,7 +61,7 @@ paths:
                 example: 123e4567-e89b-42d3-a456-5566424488888
               description: id of response
         '500':
-          description: Internal Server Error
+          description: Internal Server Error. Repository is empty
           headers:
             Data-time:
               schema:
@@ -132,15 +129,12 @@ paths:
                     age: 23
                     height: 180
                     nationality: PL
-                    position:
-                      position: ST
+                    position: ST
                     goalsCount: 10
                     assistCount: 7
                     yellowCardCount: 3
                     redCardCount: 1
-                    team:
-                      id: 97874567-e89b-42d3-a456-556642440000
-                      name: Pogon Szczecin
+                    teamId: 97874567-e89b-42d3-a456-556642440000
         '404':
           description: Not Found
           headers:
@@ -155,7 +149,7 @@ paths:
                 example: 123e4567-e89b-42d3-a456-5566424488888
               description: Id of response
         '500':
-          description: Internal Server Error
+          description: Internal Server Error. User doesn't exists.
           headers:
             Data-time:
               schema:
@@ -199,6 +193,19 @@ paths:
                 type: string
                 example: 123e4567-e89b-42d3-a456-5566424488888
               description: Id of response
+        '401':
+          description: Unautohrized. Authentication failed.
+          headers:
+            Data-time:
+              schema:
+                type: string
+                example: '2017-07-21T17:32:28Z'
+              description: Data-time of response
+            Id:
+              schema:
+                type: string
+                example: 123e4567-e89b-42d3-a456-5566424488888
+              description: Id of response
         '404':
           description: Not Found
           headers:
@@ -213,7 +220,7 @@ paths:
                 example: 123e4567-e89b-42d3-a456-5566424488888
               description: Id of response
         '500':
-          description: Internal Server Error
+          description: Internal Server Error. User doesn't exists.
           headers:
             Data-time:
               schema:
@@ -280,15 +287,12 @@ paths:
                     age: 23
                     height: 180
                     nationality: PL
-                    position:
-                      position: ST
+                    position: ST
                     goalsCount: 10
                     assistCount: 7
                     yellowCardCount: 3
                     redCardCount: 1
-                    team:
-                      id: 97874567-e89b-42d3-a456-556642440000
-                      name: Pogon Szczecin
+                    teamId: 97874567-e89b-42d3-a456-556642440000
         '404':
           description: Not Found
           headers:
@@ -303,7 +307,7 @@ paths:
                 example: 123e4567-e89b-42d3-a456-5566424488888
               description: Id of response
         '500':
-          description: Internal Server Error
+          description: Internal Server Error. Team doesn't exists.
           headers:
             Data-time:
               schema:
@@ -361,15 +365,25 @@ paths:
                     age: 23
                     height: 180
                     nationality: PL
-                    position:
-                      position: ST
+                    position: ST
                     goalsCount: 10
                     assistCount: 7
                     yellowCardCount: 3
                     redCardCount: 1
-                    team:
-                      id: 97874567-e89b-42d3-a456-556642440000
-                      name: Pogon Szczecin
+                    teamId: 97874567-e89b-42d3-a456-556642440000
+        '401':
+          description: Unautohrized. Authentication failed.
+          headers:
+            Data-time:
+              schema:
+                type: string
+                example: '2017-07-21T17:32:28Z'
+              description: Data-time of response
+            Id:
+              schema:
+                type: string
+                example: 123e4567-e89b-42d3-a456-5566424488888
+              description: Id of response
         '404':
           description: Not Found
           headers:
@@ -384,7 +398,7 @@ paths:
                 example: 123e4567-e89b-42d3-a456-5566424488888
               description: Id of response
         '500':
-          description: Internal Server Error
+          description: Internal Server Error. User already exists. HMAC verification failed.
           headers:
             Data-time:
               schema:
@@ -424,15 +438,12 @@ paths:
                   age: 23
                   height: 180
                   nationality: PL
-                  position:
-                    position: ST
+                  position: ST
                   goalsCount: 10
                   assistCount: 7
                   yellowCardCount: 3
                   redCardCount: 1
-                  team:
-                    id: 97874567-e89b-42d3-a456-556642440000
-                    name: Pogon Szczecin
+                  teamId: 97874567-e89b-42d3-a456-556642440000
       security:
         - basicAuth: []
   '/transferPlayer/{playerID}':
@@ -477,15 +488,25 @@ paths:
                     age: 23
                     height: 180
                     nationality: PL
-                    position:
-                      position: ST
+                    position: ST
                     goalsCount: 10
                     assistCount: 7
                     yellowCardCount: 3
                     redCardCount: 1
-                    team:
-                      id: 97874567-e89b-42d3-a456-556642440001
-                      name: Legia Warszawa
+                    teamId: 97874567-e89b-42d3-a456-556642440001
+        '401':
+          description: Unautohrized. Authentication failed.
+          headers:
+            Data-time:
+              schema:
+                type: string
+                example: '2017-07-21T17:32:28Z'
+              description: Data-time of response
+            Id:
+              schema:
+                type: string
+                example: 123e4567-e89b-42d3-a456-5566424488888
+              description: Id of response
         '404':
           description: Not Found
           headers:
@@ -500,7 +521,7 @@ paths:
                 example: 123e4567-e89b-42d3-a456-5566424488888
               description: Id of response
         '500':
-          description: Internal Server Error
+          description: Internal Server Error. Player or Team doesn't exists.
           headers:
             Data-time:
               schema:
@@ -536,8 +557,79 @@ paths:
             examples:
               Transfer to Legia Warszawa:
                 value:
-                  id: 97874567-e89b-42d3-a456-556642440001
-                  name: Legia Warszawa
+                  teamId: 97874567-e89b-42d3-a456-556642440001
+  /teams:
+    parameters: []
+    get:
+      summary: Get all teams info.
+      tags: []
+      responses:
+        '200':
+          description: ''
+          headers:
+            Data-time:
+              schema:
+                type: string
+                example: '2017-07-21T17:32:28Z'
+              description: data-time of response
+            Id:
+              schema:
+                type: string
+                example: 123e4567-e89b-42d3-a456-5566424488888
+              description: id of response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              examples:
+                Example no. 1:
+                  value:
+                    id: 123e4567-e89b-42d3-a456-556642440000
+                    name: Pogon Szczecin
+        '404':
+          description: Not Found
+          headers:
+            Data-time:
+              schema:
+                type: string
+                example: '2017-07-21T17:32:28Z'
+              description: data-time of response
+            Id:
+              schema:
+                type: string
+                example: 123e4567-e89b-42d3-a456-5566424488888
+              description: id of response
+        '500':
+          description: Internal Server Error. Repository is empty.
+          headers:
+            Data-time:
+              schema:
+                type: string
+                example: '2017-07-21T17:32:28Z'
+              description: data-time of response
+            Id:
+              schema:
+                type: string
+                example: 123e4567-e89b-42d3-a456-5566424488888
+              description: id of response
+      operationId: get-teams
+      description: Retrieve the information about every team in database.
+      parameters:
+        - schema:
+            type: string
+            format: date-time
+            example: '2017-07-21T17:32:28Z'
+          in: header
+          name: Data-time
+          description: data-time of request
+        - schema:
+            type: string
+            format: int64
+            example: 123e4567-e89b-42d3-a456-5566424488888
+          in: header
+          name: Id
+          description: id of request
+  
 components:
   securitySchemes:
     basicAuth:
@@ -556,15 +648,12 @@ components:
           age: 23
           height: 180
           nationality: PL
-          position:
-            position: ST
+          position: ST
           goalsCount: 10
           assistCount: 7
           yellowCardCount: 3
           redCardCount: 1
-          team:
-            id: 97874567-e89b-42d3-a456-556642440000
-            name: Pogon Szczecin
+          teamId: 97874567-e89b-42d3-a456-556642440000
       properties:
         id:
           type: string
@@ -604,8 +693,9 @@ components:
         redCardCount:
           type: integer
           example: 1
-        team:
-          $ref: '#/components/schemas/Team'
+        teamId:
+          type: String
+          example: 123e4567-e89b-42d3-a456-556642440001
     Position:
       title: Position
       type: object
