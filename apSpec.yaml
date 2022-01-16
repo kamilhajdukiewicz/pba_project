@@ -35,18 +35,37 @@ paths:
               examples:
                 Example no. 1:
                   value:
-                    id: 123e4567-e89b-42d3-a456-556642440000
-                    firstName: Kamil
-                    lastName: Grosicki
-                    age: 23
-                    height: 180
-                    nationality: PL
-                    position: ST
-                    goalsCount: 10
-                    assistCount: 7
-                    yellowCardCount: 3
-                    redCardCount: 1
-                    teamId: 97874567-e89b-42d3-a456-556642440000
+                    responseHeader:
+                      requestId: 3e6ef8c7-8f20-4095-aabf-890295695452
+                      sendDate: "2022-01-16T19:58:06.460+00:00"
+                    usersList:
+                      player1:
+                        id: 123e4567-e89b-42d3-a456-556642440000
+                        firstName: Kamil
+                        lastName: Grosicki
+                        age: 23
+                        height: 180
+                        nationality: PL
+                        position: ST
+                        goalsCount: 10
+                        assistCount: 7
+                        yellowCardCount: 3
+                        redCardCount: 1
+                        teamId: 97874567-e89b-42d3-a456-556642440000
+                      player2:
+                        id: 123e4567-e89b-42d3-a456-5566424424110
+                        firstName: Artur
+                        lastName: Boruc
+                        age: 40
+                        height: 180
+                        nationality: PL
+                        position: ST
+                        goalsCount: 10
+                        assistCount: 7
+                        yellowCardCount: 3
+                        redCardCount: 1
+                        teamId: 97874567-e89b-42d3-a456-556642440000
+                      
         '404':
           description: Not Found
           headers:
@@ -122,19 +141,23 @@ paths:
                 $ref: '#/components/schemas/PlayerResponse'
               examples:
                 Get 123e4567-e89b-42d3-a456-556642440000:
-                  value:
-                    id: 123e4567-e89b-42d3-a456-556642440000
-                    firstName: Kamil
-                    lastName: Grosicki
-                    age: 23
-                    height: 180
-                    nationality: PL
-                    position: ST
-                    goalsCount: 10
-                    assistCount: 7
-                    yellowCardCount: 3
-                    redCardCount: 1
-                    teamId: 97874567-e89b-42d3-a456-556642440000
+                   value:
+                    responseHeader:
+                      requestId: a342f5e6-7346-4829-8bb2-4bcc2cee4789
+                      sendDate: 2020-11-17T12:08:56.235-0100
+                    player:
+                      id: 123e4567-e89b-42d3-a456-556642440000
+                      firstName: Kamil
+                      lastName: Grosicki
+                      age: 23
+                      height: 180
+                      nationality: PL
+                      position: ST
+                      goalsCount: 10
+                      assistCount: 7
+                      yellowCardCount: 3
+                      redCardCount: 1
+                      teamId: 97874567-e89b-42d3-a456-556642440000
         '404':
           description: Not Found
           headers:
@@ -281,18 +304,36 @@ paths:
               examples:
                 Get 97874567-e89b-42d3-a456-556642440000:
                   value:
-                    id: 123e4567-e89b-42d3-a456-556642440000
-                    firstName: Kamil
-                    lastName: Grosicki
-                    age: 23
-                    height: 180
-                    nationality: PL
-                    position: ST
-                    goalsCount: 10
-                    assistCount: 7
-                    yellowCardCount: 3
-                    redCardCount: 1
-                    teamId: 97874567-e89b-42d3-a456-556642440000
+                    responseHeader:
+                      requestId: 3e6ef8c7-8f20-4095-aabf-890295695452
+                      sendDate: "2022-01-16T19:58:06.460+00:00"
+                    usersList:
+                      player1:
+                        id: 123e4567-e89b-42d3-a456-556642440000
+                        firstName: Kamil
+                        lastName: Grosicki
+                        age: 23
+                        height: 180
+                        nationality: PL
+                        position: ST
+                        goalsCount: 10
+                        assistCount: 7
+                        yellowCardCount: 3
+                        redCardCount: 1
+                        teamId: 97874567-e89b-42d3-a456-556642440000
+                      player2:
+                        id: 123e4567-e89b-42d3-a456-5566424424110
+                        firstName: Sebastian
+                        lastName: Kowalczyk
+                        age: 23
+                        height: 165
+                        nationality: PL
+                        position: ST
+                        goalsCount: 10
+                        assistCount: 7
+                        yellowCardCount: 3
+                        redCardCount: 1
+                        teamId: 97874567-e89b-42d3-a456-556642440000
         '404':
           description: Not Found
           headers:
@@ -359,18 +400,22 @@ paths:
               examples:
                 Create Kamil Grosicki:
                   value:
-                    id: 123e4567-e89b-42d3-a456-556642440000
-                    firstName: Kamil
-                    lastName: Grosicki
-                    age: 23
-                    height: 180
-                    nationality: PL
-                    position: ST
-                    goalsCount: 10
-                    assistCount: 7
-                    yellowCardCount: 3
-                    redCardCount: 1
-                    teamId: 97874567-e89b-42d3-a456-556642440000
+                    responseHeader:
+                      requestId: a342f5e6-7346-4829-8bb2-4bcc2cee4789
+                      sendDate: 2020-11-17T12:08:56.235-0100
+                    player:
+                      id: 123e4567-e89b-42d3-a456-556642440000
+                      firstName: Kamil
+                      lastName: Grosicki
+                      age: 23
+                      height: 180
+                      nationality: PL
+                      position: ST
+                      goalsCount: 10
+                      assistCount: 7
+                      yellowCardCount: 3
+                      redCardCount: 1
+                      teamId: 97874567-e89b-42d3-a456-556642440000
         '401':
           description: Unautohrized. Authentication failed.
           headers:
@@ -432,6 +477,7 @@ paths:
             examples:
               Create Kamil Grosicki:
                 value:
+                 player:
                   id: 123e4567-e89b-42d3-a456-556642440000
                   firstName: Kamil
                   lastName: Grosicki
@@ -482,18 +528,22 @@ paths:
               examples:
                 Transfer Kamil Grosicki:
                   value:
-                    id: 123e4567-e89b-42d3-a456-556642440000
-                    firstName: Kamil
-                    lastName: Grosicki
-                    age: 23
-                    height: 180
-                    nationality: PL
-                    position: ST
-                    goalsCount: 10
-                    assistCount: 7
-                    yellowCardCount: 3
-                    redCardCount: 1
-                    teamId: 97874567-e89b-42d3-a456-556642440001
+                    responseHeader:
+                      requestId: 6831f0d6-e5a9-42a4-8d8e-fc8832fb7f01
+                      sendDate: '2022-01-16T20:00:11.346+00:00'
+                    player:
+                      id: 123e4567-e89b-42d3-a456-556642440000
+                      firstName: Kamil
+                      lastName: Grosicki
+                      age: 23
+                      height: 180
+                      nationality: PL
+                      position: ST
+                      goalsCount: 10
+                      assistCount: 7
+                      yellowCardCount: 3
+                      redCardCount: 1
+                      teamId: 97874567-e89b-42d3-a456-556642440001
         '401':
           description: Unautohrized. Authentication failed.
           headers:
@@ -584,8 +634,16 @@ paths:
               examples:
                 Example no. 1:
                   value:
-                    id: 123e4567-e89b-42d3-a456-556642440000
-                    name: Pogon Szczecin
+                    responseHeader:
+                      requestId: 6831f0d6-e5a9-42a4-8d8e-fc8832fb7f01
+                      sendDate: '2022-01-16T20:00:11.346+00:00'
+                    teamsList:
+                      team1:
+                        id: 123e4567-e89b-42d3-a456-556642440000
+                        name: Pogon Szczecin
+                      team2:
+                        id: bd455cac-7245-44fd-8d50-8223fbced82b
+                        name: Legia Warszawa
         '404':
           description: Not Found
           headers:
