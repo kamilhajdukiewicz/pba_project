@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
+import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,7 +43,18 @@ public class TransferPlayerApiController implements TransferPlayerApi {
     }
 
     @Override
-    public ResponseEntity<PlayerResponse> putUpdateUserUserID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID, @ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime, @ApiParam(value = "id of request") @RequestHeader(value = "id", required = false) String id, @ApiParam(value = "") @Valid @RequestBody(required = false) TransferRequest body) {
+    public ResponseEntity<PlayerResponse> putUpdateUserUserID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID, @ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime, @RequestHeader("Authorization") String credentials, @ApiParam(value = "id of request") @RequestHeader(value = "id", required = false) String id, @ApiParam(value = "") @Valid @RequestBody(required = false) TransferRequest body) {
+
+        credentials = credentials.replace("Basic ", "");
+        byte[] credentialsB = Base64.getDecoder().decode(credentials);
+        String c = new String(credentialsB, StandardCharsets.UTF_8);
+        String[] authData = c.split(":",2);
+        String login = authData[0];
+        String password = authData[1];
+
+        if(credRepo.getListOfCredentials().stream().filter(u->u.getLogin().equals(login)).findFirst().equals(Optional.empty())) {
+            //throw new BadAuthorizationException("Login or password is not valid!");
+        }
 
         String teamId = body.getTeamId();
         Player player = new Player();
