@@ -55,7 +55,7 @@ public interface PlayerApi {
         method = RequestMethod.DELETE,
         value = "/player/{playerID}"
     )
-    default ResponseEntity<Void> deletePlayerPlayerID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID,@ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime,@ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id) {
+    default ResponseEntity<Void> deletePlayerPlayerID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID,@ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime, @RequestHeader("Authorization") String credentials, @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -122,7 +122,7 @@ public interface PlayerApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<PlayerResponse> postPlayer(@ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime, @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id, @ApiParam(value = "") @Valid @RequestBody(required = false) PlayerRequest body) throws JsonProcessingException {
+    default ResponseEntity<PlayerResponse> postPlayer(@ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime, @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id, @RequestHeader("Authorization") String credentials, @ApiParam(value = "") @Valid @RequestBody(required = false) PlayerRequest body) throws JsonProcessingException {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

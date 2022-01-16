@@ -3,7 +3,11 @@ package org.openapitools.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiParam;
+import org.openapitools.exceptions.BadCredentialsException;
+import org.openapitools.exceptions.UserAlreadyExistsException;
+import org.openapitools.exceptions.UserDoesntExistsException;
 import org.openapitools.model.*;
+import org.openapitools.repository.CredentialsRepo;
 import org.openapitools.repository.PlayersRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
@@ -29,6 +34,7 @@ public class PlayerApiController implements PlayerApi {
     private final NativeWebRequest request;
 
     private PlayersRepository playersRepo = PlayersRepository.getInstance();
+    private CredentialsRepo credRepo = CredentialsRepo.getInstance();
 
     @org.springframework.beans.factory.annotation.Autowired
     public PlayerApiController(NativeWebRequest request) {
@@ -42,22 +48,25 @@ public class PlayerApiController implements PlayerApi {
 
     @Override
     public ResponseEntity<PlayerResponse> postPlayer(@ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime,
-                                                     @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id,
+                                                     @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id, @RequestHeader("Authorization") String credentials,
                                                      @ApiParam(value = "") @Valid @RequestBody(required = false) PlayerRequest body) throws JsonProcessingException {
         Player player = body.getPlayer();
-        String bodyReq = body.toString().replace("class UpdateRequest ", "");
-        bodyReq = bodyReq.toString().replace("class User ", "");
-        ObjectMapper mapper = new ObjectMapper();
-        String bodyStr = mapper.writeValueAsString(bodyReq.toString());
+        if(credRepo.areCredentialsValid(credentials)) {
+            String bodyReq = body.toString().replace("class UpdateRequest ", "");
+            bodyReq = bodyReq.toString().replace("class User ", "");
+            ObjectMapper mapper = new ObjectMapper();
+            String bodyStr = mapper.writeValueAsString(bodyReq.toString());
 
-        if(playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(player.getId())).findFirst().equals(Optional.empty())) {
-            playersRepo.addNewPlayer(new PlayerDB(UUID.fromString(player.getId()), player.getFirstName(), player.getLastName(),
-                    player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
-                    player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
+            if (playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(player.getId())).findFirst().equals(Optional.empty())) {
+                playersRepo.addNewPlayer(new PlayerDB(UUID.fromString(player.getId()), player.getFirstName(), player.getLastName(),
+                        player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
+                        player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
+            } else {
+                throw new UserAlreadyExistsException("User already exists");
+            }
         } else {
-            //throw new UserAlreadyExistsException();
+            throw new BadCredentialsException("Unauthorized");
         }
-
         return ResponseEntity.ok().body(new PlayerResponse().player(player).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
     }
@@ -71,21 +80,24 @@ public class PlayerApiController implements PlayerApi {
                     .map(p -> new Player(p.getId().toString(), p.getFirstName(), p.getLastName(),
                             p.getAge(), p.getHeight(), p.getNationality(), Position.PositionEnum.fromValue(p.getPosition()),
                             p.getGoalsCount(), p.getAssistCount(), p.getYellowCardCount(), p.getRedCardCount(), p.getTeamId())).orElse(null);
-        }
-        else {
-
+        } else {
+            throw new UserDoesntExistsException("User doesn't exists");
         }
         return ResponseEntity.ok().body(new PlayerResponse().player(player).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
     }
 
     @Override
-    public ResponseEntity<Void> deletePlayerPlayerID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID, @ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime, @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id) {
-        if(!playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())) {
-            playersRepo.deletePlayerById(UUID.fromString(playerID));
-        }
-        else {
+    public ResponseEntity<Void> deletePlayerPlayerID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID, @ApiParam(value = "Data-time of request") @RequestHeader(value = "Data-time", required = false) String dataTime,@RequestHeader("Authorization") String credentials, @ApiParam(value = "Id of request") @RequestHeader(value = "Id", required = false) String id) {
 
+        if(credRepo.areCredentialsValid(credentials)) {
+            if (!playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())) {
+                playersRepo.deletePlayerById(UUID.fromString(playerID));
+            } else {
+                throw new UserDoesntExistsException("User doesn't exists");
+            }
+        } else {
+            throw new BadCredentialsException("Unauthorized");
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

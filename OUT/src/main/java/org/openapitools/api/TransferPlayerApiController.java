@@ -1,6 +1,7 @@
 package org.openapitools.api;
 
 import io.swagger.annotations.ApiParam;
+import org.openapitools.exceptions.BadCredentialsException;
 import org.openapitools.model.*;
 import org.openapitools.repository.CredentialsRepo;
 import org.openapitools.repository.PlayersRepository;
@@ -44,44 +45,33 @@ public class TransferPlayerApiController implements TransferPlayerApi {
 
     @Override
     public ResponseEntity<PlayerResponse> putUpdateUserUserID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID, @ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime, @RequestHeader("Authorization") String credentials, @ApiParam(value = "id of request") @RequestHeader(value = "id", required = false) String id, @ApiParam(value = "") @Valid @RequestBody(required = false) TransferRequest body) {
-
-        credentials = credentials.replace("Basic ", "");
-        byte[] credentialsB = Base64.getDecoder().decode(credentials);
-        String c = new String(credentialsB, StandardCharsets.UTF_8);
-        String[] authData = c.split(":",2);
-        String login = authData[0];
-        String password = authData[1];
-
-        if(credRepo.getListOfCredentials().stream().filter(u->u.getLogin().equals(login)).findFirst().equals(Optional.empty())) {
-            //throw new BadAuthorizationException("Login or password is not valid!");
-        }
-
-        String teamId = body.getTeamId();
         Player player = new Player();
-        if(!playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())
-                && !teamsRepository.getListOfTeams().stream().filter(t->t.getId().toString().equals(teamId)).findFirst().equals(Optional.empty())) {
+        if(credRepo.areCredentialsValid(credentials)) {
+            String teamId = body.getTeamId();
+            if (!playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())
+                    && !teamsRepository.getListOfTeams().stream().filter(t -> t.getId().toString().equals(teamId)).findFirst().equals(Optional.empty())) {
 
-            player = playersRepo.getListOfPlayers().stream().filter(u->u.getId().toString().equals(playerID)).findFirst()
-                    .map(p -> new Player(p.getId().toString(), p.getFirstName(), p.getLastName(),
-                            p.getAge(), p.getHeight(), p.getNationality(), Position.PositionEnum.fromValue(p.getPosition()),
-                            p.getGoalsCount(), p.getAssistCount(), p.getYellowCardCount(), p.getRedCardCount(), p.getTeamId())).orElse(null);
+                player = playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(playerID)).findFirst()
+                        .map(p -> new Player(p.getId().toString(), p.getFirstName(), p.getLastName(),
+                                p.getAge(), p.getHeight(), p.getNationality(), Position.PositionEnum.fromValue(p.getPosition()),
+                                p.getGoalsCount(), p.getAssistCount(), p.getYellowCardCount(), p.getRedCardCount(), p.getTeamId())).orElse(null);
 
-            if(!player.getId().equals(teamId)) {
-                player.setTeam(UUID.fromString(teamId));
-                playersRepo.updatePlayerById(UUID.fromString(playerID), new PlayerDB(UUID.fromString(playerID), player.getFirstName(), player.getLastName(),
-                        player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
-                        player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
+                if (!player.getId().equals(teamId)) {
+                    player.setTeam(UUID.fromString(teamId));
+                    playersRepo.updatePlayerById(UUID.fromString(playerID), new PlayerDB(UUID.fromString(playerID), player.getFirstName(), player.getLastName(),
+                            player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
+                            player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
+                } else {
+
+                }
+            } else {
+
             }
-            else {
-
-            }
-        }
-        else {
-
+        } else {
+            throw new BadCredentialsException("Unauthorized");
         }
         return ResponseEntity.ok().body(new PlayerResponse().player(player).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
 
     }
-
 }
