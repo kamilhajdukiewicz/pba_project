@@ -82,8 +82,7 @@ public class TransferRequest {
         StringBuilder sb = new StringBuilder();
         sb.append("class TransferRequest {\n");
 
-        sb.append("    requestHeader: ").append(toIndentedString(requestHeader)).append("\n");
-        sb.append("    teamId: ").append(toIndentedString(teamId)).append("\n");
+        sb.append("    \"teamId\": \"").append(toIndentedString(teamId)).append("\"\n");
         sb.append("}");
         return sb.toString();
     }

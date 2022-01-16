@@ -42,6 +42,16 @@ public class TransferPlayerApiController implements TransferPlayerApi {
     private TeamsRepository teamsRepository = TeamsRepository.getInstance();
     private CredentialsRepo credRepo = CredentialsRepo.getInstance();
 
+    private String hmacVerification(String body) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
+        String key = "123456";
+        String bodyReq = body.replace("class TransferRequest ", "");
+        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
+        sha256_HMAC.init(secret_key);
+
+        return Hex.encodeHexString(sha256_HMAC.doFinal(bodyReq.toString().getBytes("UTF-8")));
+    }
+
     @org.springframework.beans.factory.annotation.Autowired
     public TransferPlayerApiController(NativeWebRequest request) {
         this.request = request;
@@ -58,16 +68,9 @@ public class TransferPlayerApiController implements TransferPlayerApi {
                                                               @RequestHeader("Authorization") String credentials, @ApiParam(value = "id of request") @RequestHeader(value = "id", required = false) String id,
                                                               @RequestHeader("X-HMAC-SIGNATURE") String signature, @ApiParam(value = "") @Valid @RequestBody(required = false) TransferRequest body) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
         Player player = new Player();
-        String bodyReq = body.toString().replace("class TransferRequest ", "");
 
         if(credRepo.areCredentialsValid(credentials)) {
-            String key = "123456";
-            Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
-            sha256_HMAC.init(secret_key);
-
-            String hash = Hex.encodeHexString(sha256_HMAC.doFinal(bodyReq.toString().getBytes("UTF-8")));
-
+            String hash = hmacVerification(body.toString());
             if(hash.equals(signature)) {
                 String teamId = body.getTeamId();
                 if (!playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())
@@ -90,7 +93,7 @@ public class TransferPlayerApiController implements TransferPlayerApi {
                     throw new UserDoesntExistsException("Player or Team doesn't exists");
                 }
             } else {
-                throw new MessageNotValidException("Message is not valid!");
+                throw new MessageNotValidException("Message is not valid! HMAC verification failed");
             }
         } else {
             throw new BadCredentialsException("Unauthorized");
