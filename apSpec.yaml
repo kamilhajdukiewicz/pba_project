@@ -31,7 +31,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                $ref: '#/components/schemas/PlayerListResponse'
               examples:
                 Example no. 1:
                   value:
@@ -119,7 +119,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                $ref: '#/components/schemas/PlayerResponse'
               examples:
                 Get 123e4567-e89b-42d3-a456-556642440000:
                   value:
@@ -277,7 +277,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                $ref: '#/components/schemas/PlayerListResponse'
               examples:
                 Get 97874567-e89b-42d3-a456-556642440000:
                   value:
@@ -355,7 +355,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                $ref: '#/components/schemas/PlayerResponse'
               examples:
                 Create Kamil Grosicki:
                   value:
@@ -428,7 +428,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Player'
+              $ref: '#/components/schemas/PlayerRequest'
             examples:
               Create Kamil Grosicki:
                 value:
@@ -478,7 +478,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                $ref: '#/components/schemas/PlayerResponse'
               examples:
                 Transfer Kamil Grosicki:
                   value:
@@ -553,7 +553,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Team'
+              $ref: '#/components/schemas/TransferRequest'
             examples:
               Transfer to Legia Warszawa:
                 value:
@@ -580,7 +580,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Team'
+                $ref: '#/components/schemas/TeamsListResponse'
               examples:
                 Example no. 1:
                   value:
@@ -694,7 +694,7 @@ components:
           type: integer
           example: 1
         teamId:
-          type: String
+          type: string
           example: 123e4567-e89b-42d3-a456-556642440001
     Position:
       title: Position
@@ -726,3 +726,86 @@ components:
         name:
           type: string
           example: Pogon Szczecin
+    Error: 
+      title: Error
+      type: object
+      properties: 
+        responseHeader:
+          $ref: '#/components/schemas/ResponseHeader' 
+        code: 
+          type: string
+          example: UNAUTHORIZED
+        message:
+          type: string
+          example: Authentication failed 
+    ResponseHeader:
+      title: ResponseHeader
+      type: object
+      properties: 
+        responseId: 
+          type: string
+          format: uuid 
+        sendDate: 
+          type: string
+          format: date-time
+          example: 2020-11-17T12:08:56.235-0100 
+          description: Date format according to ISO_8601 for example yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    RequestHeader:
+      title: RequestHeader
+      type: object 
+      properties: 
+        requestId: 
+          type: string
+          format: uuid 
+        sendDate: 
+          type: string
+          format: date-time
+          example: 2020-11-17T12:08:56.235-0100 
+          description: Date format according to ISO_8601 for example yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    PlayerRequest:
+      title: PlayerRequest
+      type: object
+      properties: 
+        requestHeader:
+          $ref: "#/components/schemas/RequestHeader"
+        player: 
+          $ref: "#/components/schemas/Player" 
+    TransferRequest:
+      title: TransferRequest
+      type: object 
+      properties: 
+        requestHeader:
+          $ref: "#/components/schemas/RequestHeader"
+        teamId: 
+          type: string
+          example: 97874567-e89b-42d3-a456-556642440001
+    PlayerResponse:
+      title: PlayerResponse
+      type: object 
+      properties: 
+        responseHeader:
+          $ref: "#/components/schemas/ResponseHeader"
+        user: 
+          $ref: "#/components/schemas/Player"
+    PlayerListResponse:
+      title: PlayerListResponse
+      type: object 
+      properties: 
+        responseHeader:
+          $ref: "#/components/schemas/ResponseHeader"
+        playerList:
+          title: playerList
+          type: array
+          items: 
+            $ref: "#/components/schemas/Player"
+    TeamsListResponse:
+      title: TeamsListResponse
+      type: object 
+      properties: 
+        responseHeader:
+          $ref: "#/components/schemas/ResponseHeader"
+        teamsList:
+          title: teamsList
+          type: array
+          items: 
+            $ref: "#/components/schemas/Team"
