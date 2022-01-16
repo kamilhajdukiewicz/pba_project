@@ -68,30 +68,16 @@ paths:
                       
         '404':
           description: Not Found
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: id of response
+                $ref: "#/components/schemas/Error"
         '500':
           description: Internal Server Error. Repository is empty
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: id of response
+                $ref: "#/components/schemas/Error"
       operationId: get-users-userId
       description: Retrieve the information about every player in database.
       parameters:
@@ -160,30 +146,16 @@ paths:
                       teamId: 97874567-e89b-42d3-a456-556642440000
         '404':
           description: Not Found
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
         '500':
           description: Internal Server Error. User doesn't exists.
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of request
+                $ref: "#/components/schemas/Error"
       operationId: get-player-playerID
       description: Get info about the player with the same ID as playerID.
       parameters:
@@ -218,43 +190,22 @@ paths:
               description: Id of response
         '401':
           description: Unautohrized. Authentication failed.
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: Data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
         '404':
           description: Not Found
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: Data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
         '500':
           description: Internal Server Error. User doesn't exists.
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: Data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
       description: Delte the player with matching playerId.
       security:
         - basicAuth: []
@@ -336,30 +287,16 @@ paths:
                         teamId: 97874567-e89b-42d3-a456-556642440000
         '404':
           description: Not Found
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
         '500':
           description: Internal Server Error. Team doesn't exists.
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
       operationId: get-team-teamID
       description: Get info about the players with the same team ID as teamID.
       parameters:
@@ -418,43 +355,22 @@ paths:
                       teamId: 97874567-e89b-42d3-a456-556642440000
         '401':
           description: Unautohrized. Authentication failed.
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: Data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
         '404':
           description: Not Found
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: Data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
         '500':
           description: Internal Server Error. User already exists. HMAC verification failed.
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: Data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
       description: Create a new player.
       parameters:
         - schema:
@@ -546,43 +462,22 @@ paths:
                       teamId: 97874567-e89b-42d3-a456-556642440001
         '401':
           description: Unautohrized. Authentication failed.
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: Data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
         '404':
           description: Not Found
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: Data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
         '500':
           description: Internal Server Error. Player or Team doesn't exists.
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: Data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: Id of response
+                $ref: "#/components/schemas/Error"
       description: Transfer player to the new team.
       parameters:
         - schema:
@@ -646,30 +541,16 @@ paths:
                         name: Legia Warszawa
         '404':
           description: Not Found
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: id of response
+                $ref: "#/components/schemas/Error"
         '500':
           description: Internal Server Error. Repository is empty.
-          headers:
-            Data-time:
+          content:
+            application/json:
               schema:
-                type: string
-                example: '2017-07-21T17:32:28Z'
-              description: data-time of response
-            Id:
-              schema:
-                type: string
-                example: 123e4567-e89b-42d3-a456-5566424488888
-              description: id of response
+                $ref: "#/components/schemas/Error"
       operationId: get-teams
       description: Retrieve the information about every team in database.
       parameters:
