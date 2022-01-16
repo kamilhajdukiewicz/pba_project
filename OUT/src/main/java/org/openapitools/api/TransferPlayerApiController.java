@@ -1,7 +1,9 @@
 package org.openapitools.api;
 
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.codec.binary.Hex;
 import org.openapitools.exceptions.BadCredentialsException;
+import org.openapitools.exceptions.MessageNotValidException;
 import org.openapitools.exceptions.UserAlreadyExistsException;
 import org.openapitools.exceptions.UserDoesntExistsException;
 import org.openapitools.model.*;
@@ -18,8 +20,13 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -46,28 +53,44 @@ public class TransferPlayerApiController implements TransferPlayerApi {
     }
 
     @Override
-    public ResponseEntity<PlayerResponse> putUpdateUserUserID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID, @ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime, @RequestHeader("Authorization") String credentials, @ApiParam(value = "id of request") @RequestHeader(value = "id", required = false) String id, @ApiParam(value = "") @Valid @RequestBody(required = false) TransferRequest body) {
+    public ResponseEntity<PlayerResponse> putUpdateUserUserID(@ApiParam(value = "Id of the player", required = true) @PathVariable("playerID") String playerID,
+                                                              @ApiParam(value = "data-time of request") @RequestHeader(value = "Data-time", required = false) OffsetDateTime dataTime,
+                                                              @RequestHeader("Authorization") String credentials, @ApiParam(value = "id of request") @RequestHeader(value = "id", required = false) String id,
+                                                              @RequestHeader("X-HMAC-SIGNATURE") String signature, @ApiParam(value = "") @Valid @RequestBody(required = false) TransferRequest body) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
         Player player = new Player();
+        String bodyReq = body.toString().replace("class TransferRequest ", "");
+
         if(credRepo.areCredentialsValid(credentials)) {
-            String teamId = body.getTeamId();
-            if (!playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())
-                    && !teamsRepository.getListOfTeams().stream().filter(t -> t.getId().toString().equals(teamId)).findFirst().equals(Optional.empty())) {
+            String key = "123456";
+            Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+            SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
+            sha256_HMAC.init(secret_key);
 
-                player = playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(playerID)).findFirst()
-                        .map(p -> new Player(p.getId().toString(), p.getFirstName(), p.getLastName(),
-                                p.getAge(), p.getHeight(), p.getNationality(), Position.PositionEnum.fromValue(p.getPosition()),
-                                p.getGoalsCount(), p.getAssistCount(), p.getYellowCardCount(), p.getRedCardCount(), p.getTeamId())).orElse(null);
+            String hash = Hex.encodeHexString(sha256_HMAC.doFinal(bodyReq.toString().getBytes("UTF-8")));
 
-                if (!player.getTeamId().toString().equals(teamId)) {
-                    player.setTeam(UUID.fromString(teamId));
-                    playersRepo.updatePlayerById(UUID.fromString(playerID), new PlayerDB(UUID.fromString(playerID), player.getFirstName(), player.getLastName(),
-                            player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
-                            player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
+            if(hash.equals(signature)) {
+                String teamId = body.getTeamId();
+                if (!playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())
+                        && !teamsRepository.getListOfTeams().stream().filter(t -> t.getId().toString().equals(teamId)).findFirst().equals(Optional.empty())) {
+
+                    player = playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(playerID)).findFirst()
+                            .map(p -> new Player(p.getId().toString(), p.getFirstName(), p.getLastName(),
+                                    p.getAge(), p.getHeight(), p.getNationality(), Position.PositionEnum.fromValue(p.getPosition()),
+                                    p.getGoalsCount(), p.getAssistCount(), p.getYellowCardCount(), p.getRedCardCount(), p.getTeamId())).orElse(null);
+
+                    if (!player.getTeamId().toString().equals(teamId)) {
+                        player.setTeam(UUID.fromString(teamId));
+                        playersRepo.updatePlayerById(UUID.fromString(playerID), new PlayerDB(UUID.fromString(playerID), player.getFirstName(), player.getLastName(),
+                                player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
+                                player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
+                    } else {
+                        throw new UserAlreadyExistsException("Player is already in the team");
+                    }
                 } else {
-                    throw new UserAlreadyExistsException("Player is already in the team");
+                    throw new UserDoesntExistsException("Player or Team doesn't exists");
                 }
             } else {
-                throw new UserDoesntExistsException("Player or Team doesn't exists");
+                throw new MessageNotValidException("Message is not valid!");
             }
         } else {
             throw new BadCredentialsException("Unauthorized");
