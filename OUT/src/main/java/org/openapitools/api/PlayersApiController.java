@@ -1,6 +1,7 @@
 package org.openapitools.api;
 
 import io.swagger.annotations.ApiParam;
+import org.openapitools.exceptions.EmptyRepositoryException;
 import org.openapitools.model.Player;
 import org.openapitools.model.PlayerListResponse;
 import org.openapitools.model.Position;
@@ -43,10 +44,8 @@ public class PlayersApiController implements PlayersApi {
             Players = playersRepo.getListOfPlayers().stream()
                     .map(p -> new Player(p.getId().toString(), p.getFirstName(), p.getLastName(), p.getAge(), p.getHeight(), p.getNationality(), Position.PositionEnum.fromValue(p.getPosition()), p.getGoalsCount(), p.getAssistCount(), p.getYellowCardCount(), p.getRedCardCount(), p.getTeamId()))
                     .collect(Collectors.toList());
-
-        }
-        else {
-
+        } else {
+            throw new EmptyRepositoryException("Repository is empty");
         }
         return ResponseEntity.ok().body(new PlayerListResponse().playerList(Players).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));

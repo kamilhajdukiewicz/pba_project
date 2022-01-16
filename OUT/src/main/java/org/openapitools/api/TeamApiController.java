@@ -1,6 +1,7 @@
 package org.openapitools.api;
 
 import io.swagger.annotations.ApiParam;
+import org.openapitools.exceptions.UserDoesntExistsException;
 import org.openapitools.model.Player;
 import org.openapitools.model.PlayerListResponse;
 import org.openapitools.model.Position;
@@ -49,7 +50,7 @@ public class TeamApiController implements TeamApi {
                             .collect(Collectors.toList());
         }
         else {
-
+            throw new UserDoesntExistsException("Team doesn't exists");
         }
         return ResponseEntity.ok().body(new PlayerListResponse().playerList(Players).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));

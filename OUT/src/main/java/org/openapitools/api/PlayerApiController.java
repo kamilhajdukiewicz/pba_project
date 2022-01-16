@@ -62,7 +62,7 @@ public class PlayerApiController implements PlayerApi {
                         player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
                         player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
             } else {
-                throw new UserAlreadyExistsException("User already exists");
+                throw new UserAlreadyExistsException("Player already exists");
             }
         } else {
             throw new BadCredentialsException("Unauthorized");
@@ -81,7 +81,7 @@ public class PlayerApiController implements PlayerApi {
                             p.getAge(), p.getHeight(), p.getNationality(), Position.PositionEnum.fromValue(p.getPosition()),
                             p.getGoalsCount(), p.getAssistCount(), p.getYellowCardCount(), p.getRedCardCount(), p.getTeamId())).orElse(null);
         } else {
-            throw new UserDoesntExistsException("User doesn't exists");
+            throw new UserDoesntExistsException("Player doesn't exists");
         }
         return ResponseEntity.ok().body(new PlayerResponse().player(player).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
@@ -94,7 +94,7 @@ public class PlayerApiController implements PlayerApi {
             if (!playersRepo.getListOfPlayers().stream().filter(u -> u.getId().toString().equals(playerID)).findFirst().equals(Optional.empty())) {
                 playersRepo.deletePlayerById(UUID.fromString(playerID));
             } else {
-                throw new UserDoesntExistsException("User doesn't exists");
+                throw new UserDoesntExistsException("Player doesn't exists");
             }
         } else {
             throw new BadCredentialsException("Unauthorized");

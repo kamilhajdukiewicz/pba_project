@@ -2,6 +2,8 @@ package org.openapitools.api;
 
 import io.swagger.annotations.ApiParam;
 import org.openapitools.exceptions.BadCredentialsException;
+import org.openapitools.exceptions.UserAlreadyExistsException;
+import org.openapitools.exceptions.UserDoesntExistsException;
 import org.openapitools.model.*;
 import org.openapitools.repository.CredentialsRepo;
 import org.openapitools.repository.PlayersRepository;
@@ -56,16 +58,16 @@ public class TransferPlayerApiController implements TransferPlayerApi {
                                 p.getAge(), p.getHeight(), p.getNationality(), Position.PositionEnum.fromValue(p.getPosition()),
                                 p.getGoalsCount(), p.getAssistCount(), p.getYellowCardCount(), p.getRedCardCount(), p.getTeamId())).orElse(null);
 
-                if (!player.getId().equals(teamId)) {
+                if (!player.getTeamId().toString().equals(teamId)) {
                     player.setTeam(UUID.fromString(teamId));
                     playersRepo.updatePlayerById(UUID.fromString(playerID), new PlayerDB(UUID.fromString(playerID), player.getFirstName(), player.getLastName(),
                             player.getAge(), player.getHeight(), player.getNationality(), player.getPosition().toString(),
                             player.getGoalsCount(), player.getAssistCount(), player.getYellowCardCount(), player.getRedCardCount(), player.getTeamId()));
                 } else {
-
+                    throw new UserAlreadyExistsException("Player is already in the team");
                 }
             } else {
-
+                throw new UserDoesntExistsException("Player or Team doesn't exists");
             }
         } else {
             throw new BadCredentialsException("Unauthorized");

@@ -1,6 +1,7 @@
 package org.openapitools.api;
 
 import io.swagger.annotations.ApiParam;
+import org.openapitools.exceptions.EmptyRepositoryException;
 import org.openapitools.model.*;
 import org.openapitools.repository.TeamsRepository;
 import org.springframework.http.HttpStatus;
@@ -47,9 +48,8 @@ public class TeamsApiController implements TeamsApi {
                     .map(p -> new Team(p.getId().toString(), p.getName()))
                     .collect(Collectors.toList());
 
-        }
-        else {
-
+        } else {
+            throw new EmptyRepositoryException("Repository is empty");
         }
         return ResponseEntity.ok().body(new TeamListResponse().teamsList(Teams).
                 responseHeader(new ResponseHeader().requestId(UUID.randomUUID()).sendDate(new Date(System.currentTimeMillis()))));
