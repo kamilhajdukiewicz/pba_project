@@ -43,6 +43,17 @@ public class PlayerApiController implements PlayerApi {
     private PlayersRepository playersRepo = PlayersRepository.getInstance();
     private CredentialsRepo credRepo = CredentialsRepo.getInstance();
 
+    private String hmacVerification(String body) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
+        String bodyReq = body.replace("class UpdateRequest ", "");
+        String key = "123456";
+
+        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
+        sha256_HMAC.init(secret_key);
+
+        return Hex.encodeHexString(sha256_HMAC.doFinal(bodyReq.toString().getBytes("UTF-8")));
+    }
+
     @org.springframework.beans.factory.annotation.Autowired
     public PlayerApiController(NativeWebRequest request, ObjectMapper objectMapper) {
         this.request = request;
@@ -59,14 +70,7 @@ public class PlayerApiController implements PlayerApi {
                                                      @RequestHeader("X-HMAC-SIGNATURE") String signature, @ApiParam(value = "") @Valid @RequestBody(required = false) PlayerRequest body) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
 
         Player player = body.getPlayer();
-        String bodyReq = body.toString().replace("class UpdateRequest ", "");
-        String key = "123456";
-
-        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");
-        sha256_HMAC.init(secret_key);
-
-        String hmac = Hex.encodeHexString(sha256_HMAC.doFinal(bodyReq.toString().getBytes("UTF-8")));
+        String hmac = hmacVerification(body.toString());
 
         if(credRepo.areCredentialsValid(credentials)) {
             if(hmac.equals(signature)) {
@@ -78,7 +82,7 @@ public class PlayerApiController implements PlayerApi {
                     throw new UserAlreadyExistsException("Player already exists");
                 }
             } else {
-                throw new MessageNotValidException("Message is not valid");
+                throw new MessageNotValidException("Message is not valid. HMAC Verification failed");
             }
         } else {
             throw new BadCredentialsException("Unauthorized");
