@@ -10,7 +10,6 @@ Każdy użytkownik będzie miał możliwość wyświetlania danych wszystkich za
 Tylko zautoryzowani użytkownicy bedą mogli dodać nowych zawodników czy też aktualizować ich dane i statystyki.
 Zautoryzowany użytkownik może również dokonać transferu czyli przenieś użytkownika z drużyny do drużyny przez podanie ID użytkownika i nowej drużyny.
 Zautoryzowany użytkownik może również usunąć użytkownika z bazy danych.
-Zawodnik również może nie mieć przynależności klubowej wtedy ID drużyny będzie wynosiło 0.
 
 Czyli aplikacja będzie umożliwiała wywołanie następujących funkcji:
 
@@ -24,10 +23,16 @@ Czyli aplikacja będzie umożliwiała wywołanie następujących funkcji:
 
 5. **POST -> /player** 	-> tworzy nowego użytkownika, wymagana autoryzacja. Wszystko w body.
 
-6. **PUT -> /transferPlayer/{ID}** -> transferuje zawodnika do nowej drużyny. Nowa drużyna w body.
+6. **PUT -> /transferPlayer/{ID}** -> transferuje zawodnika do nowej drużyny. Nowa drużyna w body. Wymagana autoryzacja.
 
-7. **DELETE -> /player/{ID}**	-> usuwa zawodnika z bazy danych.
+7. **DELETE -> /player/{ID}**	-> usuwa zawodnika z bazy danych. Wymagana autoryzacja.
 
+**Autoryzacja Basic**:
+**login**: admin
+**haslo**: admin
+
+Strona do generowania skrótu HMAC: 
+https://www.devglan.com/online-tools/hmac-sha256-online
 
 ## Autor
 Kamil Hajdukiewicz
