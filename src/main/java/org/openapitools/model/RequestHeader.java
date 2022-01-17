@@ -1,4 +1,4 @@
-package io.swagger.model;
+package org.openapitools.model;
 
 import java.util.Date;
 import java.util.Objects;
