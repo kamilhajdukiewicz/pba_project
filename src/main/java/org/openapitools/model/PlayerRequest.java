@@ -9,12 +9,12 @@ import java.util.Objects;
 
 public class PlayerRequest {
     @JsonProperty("requestHeader")
-    private io.swagger.model.RequestHeader requestHeader = null;
+    private RequestHeader requestHeader = null;
 
     @JsonProperty("player")
     private Player player = null;
 
-    public PlayerRequest requestHeader(io.swagger.model.RequestHeader requestHeader) {
+    public PlayerRequest requestHeader(RequestHeader requestHeader) {
         this.requestHeader = requestHeader;
         return this;
     }
@@ -28,11 +28,11 @@ public class PlayerRequest {
 
     @Valid
 
-    public io.swagger.model.RequestHeader getRequestHeader() {
+    public RequestHeader getRequestHeader() {
         return requestHeader;
     }
 
-    public void setRequestHeader(io.swagger.model.RequestHeader requestHeader) {
+    public void setRequestHeader(RequestHeader requestHeader) {
         this.requestHeader = requestHeader;
     }
 
