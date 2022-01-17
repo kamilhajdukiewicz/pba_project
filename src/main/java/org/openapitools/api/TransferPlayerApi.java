@@ -10,8 +10,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.OffsetDateTime;
 
-import org.openapitools.model.*;
 import io.swagger.annotations.*;
+import org.openapitools.model.PlayerResponse;
+import org.openapitools.model.TransferRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
