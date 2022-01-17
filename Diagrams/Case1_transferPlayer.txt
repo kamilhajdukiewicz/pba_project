@@ -1,6 +1,6 @@
 @startuml
 activate Client
-Client-> App: getPlayers()
+Client-> App: GET /players
 activate App
 App -> PlayersRepo: getAllPlayersData()
 activate PlayersRepo
@@ -15,7 +15,7 @@ deactivate Client
 end
 deactivate App
 
-Client -> App: getTeams()
+Client -> App: GET /teams
 activate Client
 activate App
 App-> TeamsRepo: getAllTeamsData()
@@ -31,7 +31,7 @@ deactivate Client
 end
 deactivate App
 
-Client -> App: transferPlayer(playerID, teamID, clientCredentials)
+Client -> App: PUT /transferPlayer/{playerId}
 activate Client
 activate App
 App-> CredentialsRepo: checkCredentials(clientCredentials)
